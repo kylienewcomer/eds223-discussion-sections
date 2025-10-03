@@ -1,1 +1,1 @@
-# eds223-week0-section
+# EDS 223 Discussion Sections
