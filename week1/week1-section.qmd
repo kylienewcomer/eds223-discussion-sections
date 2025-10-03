@@ -10,4 +10,34 @@ library(sf)
 library(stars)
 library(tmap)
 ```
+```{r}
+ei_points <- st_read(here("data", "easter_island", "ei_points.gpkg")) |> 
+  filter(type == "volcano")
+ei_elev <- read_stars(here("data", "easter_island", "ei_elev.tif"))
+ei_borders <- st_read(here("data", "easter_island", "ei_border.gpkg"))
+ei_roads <- st_read(here("data", "easter_island", "ei_roads.gpkg"))
+```
+
+Expand on your single-object map to create a map of Rapa Nui and…
+
+…denote the island’s borders and continuous elevation
+…denote the island’s volcanoes and roads
+…play with the color palette and essential map elements
+```{r}
+tm_shape(ei_borders) +
+  tm_borders() +
+  tm_shape(ei_elev) +
+  tm_raster() +
+  tm_shape(ei_roads) +
+  tm_lines() +
+  tm_shape(ei_points, is.main = TRUE) + # plot world_cities first
+  tm_dots() +
+  tm_text("name") +
+  
+```
+
+```{r}
+tm_shape(ei_borders) +
+  tm_borders()
+```
 
