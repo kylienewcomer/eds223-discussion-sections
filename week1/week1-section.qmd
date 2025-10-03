@@ -1,0 +1,13 @@
+---
+title: "week1-section"
+format: html
+---
+
+```{r}
+library(here)
+library(tidyverse)
+library(sf)
+library(stars)
+library(tmap)
+```
+
