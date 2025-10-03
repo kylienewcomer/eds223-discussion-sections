@@ -11,11 +11,11 @@ library(stars)
 library(tmap)
 ```
 ```{r}
-ei_points <- st_read(here("data", "easter_island", "ei_points.gpkg")) |> 
+ei_points <- st_read(here("week1" , "data", "easter_island", "ei_points.gpkg")) |> 
   filter(type == "volcano")
-ei_elev <- read_stars(here("data", "easter_island", "ei_elev.tif"))
-ei_borders <- st_read(here("data", "easter_island", "ei_border.gpkg"))
-ei_roads <- st_read(here("data", "easter_island", "ei_roads.gpkg"))
+ei_elev <- read_stars(here("week1" ,"data", "easter_island", "ei_elev.tif"))
+ei_borders <- st_read(here("week1" ,"data", "easter_island", "ei_border.gpkg"))
+ei_roads <- st_read(here("week1" ,"data", "easter_island", "ei_roads.gpkg"))
 ```
 
 Expand on your single-object map to create a map of Rapa Nui and…
@@ -32,7 +32,7 @@ tm_shape(ei_borders) +
   tm_lines() +
   tm_shape(ei_points, is.main = TRUE) + # plot world_cities first
   tm_dots() +
-  tm_text("name") +
+  tm_text("name")
   
 ```
 
