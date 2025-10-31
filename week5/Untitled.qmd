@@ -1,0 +1,39 @@
+---
+title: "week5"
+format: html
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+library(sf)
+library(terra)
+library(spData)
+```
+
+```{r}
+nz_height <- nz_height
+grain <- terra::rast(system.file("raster/grain.tif", package = "spData"))
+```
+
+```{r}
+nz_height3100 <- nz_height |>  
+  dplyr::filter(elevation > 3100) # rows where column elevation > 3100 meters
+```
+
+```{r}
+nz_template <- rast(terra::ext(nz_height3100), # Set extent based on nz_height3100
+                    resolution = 3000, 
+                    crs = terra::crs(nz_height3100)) # Set CRS based on nz_height3100
+```
+
+```{r}
+nz_raster <- rasterize(nz_height3100, nz_template, # Convert vector points to raster data
+                       fun = "length") # "length" returns a count per cell
+```
+
+```{r}
+plot(nz_raster, main = "Number of elevation points > 3100 in each grid cell")
+plot(st_geometry(nz_height3100), add = TRUE)
+```
+
