@@ -1,0 +1,47 @@
+---
+title: "Discussion Section 8"
+author: "Kylie Newcomer"
+format: html
+---
+
+```{r}
+library(terra)
+library(sf)
+library(tidyverse)
+library(here)
+library(tmap)
+```
+
+```{r}
+landsat <- list.files(here("week8","data"), pattern = "*.tif$", full.names = TRUE)
+
+landsat <- rast(landsat[1])
+```
+
+```{r}
+names(landsat) <- c("blue", "green", "red", "NIR", "SWIR1", "SWIR2")
+names(landsat)
+
+ndvi_fun <- function(nir, red){
+  (nir - red) / (nir + red)
+}
+
+landsat_ndvi <- lapp(landsat[[c(4, 3)]], fun = ndvi_fun)
+
+
+
+```
+
+```{r}
+landsat <- list.files(here("week8","data"), pattern = "*.tif$", full.names = TRUE)
+
+create_ndvi <- function(i){
+  landsat <- rast(landsat[i])
+  names(landsat) <- c("blue", "green", "red", "NIR", "SWIR1", "SWIR2")
+  ndvi <- lapp(landsat[[c(4, 3)]], fun = ndvi_fun)
+  return(ndvi)
+}
+
+create_ndvi(1)
+```
+
